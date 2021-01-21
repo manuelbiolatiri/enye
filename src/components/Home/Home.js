@@ -81,7 +81,7 @@ class Home extends React.Component {
               </div>
               <form>
                 <div class="row" style={{width:'50%', margin:'auto'}}>
-                  <div class="col">
+                  <div class="col-sm-12 col-md-6">
                   <label class="mr-sm-2 text-white" for="inlineFormCustomSelect">Filter by Gender</label>
                     <select class="custom-select mr-sm-2" id="inlineFormCustomSelect1" onChange={this.fIlterInput}>
                       <option value="">--Select Gender--</option>
@@ -90,7 +90,7 @@ class Home extends React.Component {
                       <option value="Prefer to skip">Prefer to skip</option>
                     </select>
                   </div>
-                  <div class="col">
+                  <div class="col-sm-12 col-md-6">
                   <label class="mr-sm-2 text-white" for="inlineFormCustomSelect">Filter by payment method</label>
                     <select class="custom-select mr-sm-2" id="inlineFormCustomSelect2" onChange={this.fIlterInput}>
                       <option value="">--Select payment method--</option>
@@ -102,7 +102,7 @@ class Home extends React.Component {
                 </div>
               </form>
             </div>
-        {!this.state.profiles ? <h4>loading...</h4> : this.state.profiles.length < 1 ? <h4>No profile found</h4> : this.state.pageOfItems.map((item, i) => {
+        {!this.state.profiles ? <h4>loading...</h4> : this.state.pageOfItems.map((item, i) => {
         return (
           <div style={{margin:'auto'}}>
             <div class="grid-container">
@@ -113,7 +113,7 @@ class Home extends React.Component {
                   <h6 class="card-subtitle mb-2 text-muted">Email: {item.Email}</h6>
                   <h6 class="card-subtitle mb-2 text-muted">Phone: {item.PhoneNumber}</h6>
                   <h6 class="card-subtitle mb-2 text-muted">Gender: {item.Gender}</h6>
-                  <a href="#" class="btn btn-info" onClick={() => this.handleModalShowHide(item)}>View Details</a>
+                  <Button class="btn btn-info" onClick={() => this.handleModalShowHide(item)}>View Details</Button>
                 </div>
               </div>
             </div>
