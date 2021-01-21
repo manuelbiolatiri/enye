@@ -2,10 +2,17 @@ import React from "react";
 import axios from "axios";
 import "./Home.css";
 import Pagination from "../Pagination/Pagination";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch } from '@fortawesome/free-solid-svg-icons'
-import { Button,Modal } from 'react-bootstrap'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { Button,Modal } from 'react-bootstrap';
+import { css } from "@emotion/core";
+import PulseLoader from "react-spinners/PulseLoader";
 
+const override = css`
+  display: block;
+  margin: auto;
+  text-align: center;
+`;
 class Home extends React.Component {
   constructor() {
       super();
@@ -17,25 +24,36 @@ class Home extends React.Component {
           pageOfItems: [],
           profiles: [],
           showHide : false,
-          viewDetails: ''
+          viewDetails: '',
+          loading: false
       };
       this.onChangePage = this.onChangePage.bind(this);
+  }
+
+  toggleLoader() {
+    this.setState({ loading: !this.state.loading });
+  }
+
+  fetchProfiles = () => {
+    this.toggleLoader();
+    console.log("onload showloader", this.state.loading) 
+    axios.get('https://api.enye.tech/v1/challenge/records')
+    .then(response => this.setState({
+      profiles: response.data.records.profiles
+    }))
+    // .then(response => console.log(response))
+    this.toggleLoader();
   }
 
   handleModalShowHide(item) {
     console.log("item.UserNameitem.UserName",item)
     this.setState({ showHide: !this.state.showHide })
     this.setState({ viewDetails: item })
-}
+};
 
   componentDidMount(){
-    axios.get('https://api.enye.tech/v1/challenge/records')
-    .then(response => this.setState({
-      profiles: response.data.records.profiles
-    }))
-    // .then(response => console.log(response))
-    
-    }
+    this.fetchProfiles();
+  }
 
   componentDidUpdate(prevProps, prevState) {
     // reset page if items array has changed
@@ -62,7 +80,7 @@ class Home extends React.Component {
 
     const firstFilter = this.state.apiValue.filter(value => value.Gender.includes(filter1));
     const secondFilter = firstFilter.filter(value => value.PaymentMethod.includes(filter2));
-    const thirdFilter = secondFilter.filter(value => value.UserName.toLowerCase().includes(filter3));
+    const thirdFilter = secondFilter.filter(value => value.UserName.toLowerCase().includes(filter3.toLowerCase()));
 
     console.log("filter -> ", thirdFilter);
 
@@ -74,7 +92,7 @@ class Home extends React.Component {
       return (
         <div className="container">
           <div className="row">
-            <div class="main" style={{width:'100%', margin:'auto'}}>
+            <div class="main mb-3" style={{width:'100%', margin:'auto'}}>
               <div class="form-group has-search" style={{width:'50%', margin:'auto', padding: '30px 0'}}>
                 <span class="fa fa-search form-control-feedback"><FontAwesomeIcon icon={faSearch} style={{color:'gray',width:'1rem',height:'1rem'}}/></span>
                 <input type="text" class="form-control" id="inlineFormCustomSelect3" placeholder="Search profiles by username" onChange={this.fIlterInput} />
@@ -102,7 +120,10 @@ class Home extends React.Component {
                 </div>
               </form>
             </div>
-        {!this.state.profiles ? <h4>loading...</h4> : this.state.pageOfItems.map((item, i) => {
+        {this.state.data.length === 0 ?
+          <PulseLoader className="mt-3" css={override} size={35}
+            color={"#fff"}
+          /> : this.state.pageOfItems.map((item, i) => {
         return (
           <div style={{margin:'auto'}}>
             <div class="grid-container">
