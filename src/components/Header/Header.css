@@ -1,7 +1,42 @@
-.link {
-    text-decoration: none;
-    color:#060c14;
+.nav {
+    padding: 0 100px;
+    height: 4rem;
+    background: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width:100%;
   }
-  .link:hover {
-    text-decoration: underline;
+.line {
+  display: block;
+  border-radius: 50px;
+  width: 25px;
+  height: 3px;
+  margin: 5px;
+  background-color: #060c14;
+  transition: width 0.4s ease-in-out;
+}
+
+.nav-icon {
+  background: none;
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+.logo {
+  vertical-align: middle;
+}
+
+@media (max-width: 768px) {
+  .nav {
+    width:100%;
+    padding: 0 30px;
   }
+}
+
+@media (min-width: 769px) {
+  .nav-icon {
+    display: none;
+  }
+}

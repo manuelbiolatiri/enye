@@ -1,35 +1,17 @@
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    grid-gap: 5px;
+    padding: 10px;
+  }
+  
+  .grid-container > div {
+    border: 1px solid black;
+    text-align: center;
+    font-size: 30px;
+    margin-left: 25px;
+  }
+
 p > .title{
     font-weight: bold;
 }
-.gridd {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    grid-gap: 15px;
-    align-items: stretch;
-    margin: 5px;
-    width:24%
-  }
-
-.gridd > article {
-    border: 0px solid #ccc;
-    box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.3);
-  }
-  
-  .gridd > article img {
-    width: 100%;
-  }
-  
-  .gridd .text {
-    padding: 20px;
-  }
-  
-  .fsm {font-size:4rem}
-  
-  .coin {height: 9.6rem}
-  @media (max-width: 769px) {
-    .gridd { grid-template-columns: repeat(2, 1fr); width: auto; }
-    .respo {width:100% !important}
-    .fs{font-size:2rem}
-    .img {display: none;}
-    .coin {height:7.3rem}
-  }
